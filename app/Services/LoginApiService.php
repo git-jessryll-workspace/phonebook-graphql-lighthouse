@@ -2,6 +2,11 @@
 
 namespace App\Services;
 
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+
 class LoginApiService
 {
     public function login(Request $request)
@@ -20,7 +25,7 @@ class LoginApiService
                 return $this->response(false, 'Email & Password do not match our records.', null, 401);
             }
 
-            $user = User::where('email', $request->email)->first();
+            $user = User::query()->where('email', $request->email)->first();
 
             return $this->response(true, 'User logged in successfully', [
                 'token' => $user->createToken("API TOKEN")->plainTextToken,
