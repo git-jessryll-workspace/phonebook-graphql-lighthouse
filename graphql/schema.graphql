@@ -1,0 +1,14 @@
+type Contact {
+    id: ID!
+    name: String!
+    contact_no: String!
+}
+type Query {
+    listContacts: [Contact!] @builder(method: "App\\GraphQL\\Queries\\ListContacts")
+    viewContact(id: ID!): Contact @builder(method: "App\\GraphQL\\Queries\\ViewContact")
+}
+type Mutation {
+    createContact(name: String!, contact_no: String!): Contact @builder(method: "App\\GraphQL\\Mutations\\CreateContact")
+    updateContact(id: ID!, name: String, contact_no: String): Contact @builder(method: "App\\GraphQL\\Mutations\\UpdateContact")
+    deleteContact(id: ID!): ID! @builder(method: "App\\GraphQL\\Mutations\\DeleteContact")
+}
