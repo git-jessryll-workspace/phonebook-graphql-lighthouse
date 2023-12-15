@@ -2,16 +2,20 @@
 
 namespace App\GraphQL\Queries;
 
-use App\Models\Contact;
+use App\Services\ContactService;
 
 final class ListContacts
 {
+    public function __construct(private readonly ContactService $contactService)
+    {
+    }
+
     /**
      * @param  null  $_
      * @param  array{}  $args
      */
     public function __invoke($_, array $args)
     {
-        return Contact::query()->get();
+        return $this->contactService->getContactList();
     }
 }

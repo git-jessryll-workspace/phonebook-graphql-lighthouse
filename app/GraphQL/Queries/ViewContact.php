@@ -2,17 +2,20 @@
 
 namespace App\GraphQL\Queries;
 
-use App\Models\Contact;
+use App\Services\ContactService;
 
 final class ViewContact
 {
+    public function __construct(private readonly ContactService $contactService)
+    {
+    }
+
     /**
      * @param  null  $_
      * @param  array{}  $args
      */
     public function __invoke($_, array $args)
     {
-        $contact = Contact::findOrFail($args['id']);
-        return $contact;
+        return $this->contactService->getContact($args['id']);
     }
 }
